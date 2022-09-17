@@ -1,0 +1,27 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "MobileTouchSystem",
+	"Description": "Enable Easy Mobile Touch Functionality Into your Project.",
+	"Category": "TouchSystem",
+	"CreatedBy": "QudratNIazi",
+	"CreatedByURL": "https://www.youtube.com/channel/UC1MYYIjVulD_wG3Vkqn0gEQ",
+	"DocsURL": "https://drive.google.com/file/d/1os7PV_qlTJdr1WRdnE31_vMPxCWpmrVX/view?usp=sharing",
+	"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/c6e3d4b8e3804970a0ca14f00bc060fc",
+	"SupportURL": "",
+	"EngineVersion": "4.27.0",
+	"CanContainContent": true,
+	"Installed": true,
+	"Modules": [
+		{
+			"Name": "MobileTouchSystem",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Android",
+				"Win64"
+			]
+		}
+	]
+}

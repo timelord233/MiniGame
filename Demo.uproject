@@ -1,0 +1,24 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "{7AE97149-4791-6271-3379-CC8D0662AF12}",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "Demo",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine",
+				"UMG"
+			]
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "MobileTouchSystem",
+			"Enabled": true,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/c6e3d4b8e3804970a0ca14f00bc060fc"
+		}
+	]
+}
