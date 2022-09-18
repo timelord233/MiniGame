@@ -3,9 +3,9 @@
 
 #include "Components/MHealthComponent.h"
 #include "Net/UnrealNetwork.h"
-#include "MGameMode.h"
-#include "MCharacter.h"
-#include "MPlayerState.h"
+#include "Core/MGameMode.h"
+#include "Character/MCharacter.h"
+#include "Character/MPlayerState.h"
 
 // Sets default values for this component's properties
 UMHealthComponent::UMHealthComponent()

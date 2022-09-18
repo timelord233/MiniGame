@@ -1,11 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "MGameMode.h"
-#include "MPlayerController.h"
+#include "Core/MGameMode.h"
+#include "Character/MPlayerController.h"
 #include "Components/MHealthComponent.h"
-#include "MGameState.h"
-#include "MPlayerState.h"
+#include "Core/MGameState.h"
+#include "Character/MPlayerState.h"
 
 AMGameMode::AMGameMode()
 {

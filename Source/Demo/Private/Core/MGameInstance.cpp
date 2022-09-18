@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "MGameInstance.h"
+#include "Core/MGameInstance.h"
 #include "Blueprint/UserWidget.h"
 
 UMGameInstance::UMGameInstance(const FObjectInitializer& ObjectInitializer)
@@ -16,9 +16,9 @@ void UMGameInstance::OnStart()
 
 void UMGameInstance::Shutdown()
 {
-	rtc_engine_->release(true);
-	destroyNERtcEngine((void*&)rtc_engine_);
-	rtc_engine_ = nullptr;
+	//rtc_engine_->release(true);
+	//destroyNERtcEngine((void*&)rtc_engine_);
+	//rtc_engine_ = nullptr;
 }
 
 void UMGameInstance::InitNERTCSDK()

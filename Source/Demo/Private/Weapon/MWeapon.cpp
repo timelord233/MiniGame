@@ -1,14 +1,14 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "MWeapon.h"
+#include "Weapon/MWeapon.h"
 #include "DrawDebugHelpers.h"
 #include "Kismet/GameplayStatics.h"
 #include "Particles/ParticleSystem.h"
 #include "Components/SceneComponent.h"
 #include "Particles/ParticleSystemComponent.h"
 #include "PhysicalMaterials/PhysicalMaterial.h"
-#include "../Demo.h"
+#include "../../Demo.h"
 #include "TimerManager.h"
 #include "Net/UnrealNetwork.h"
 

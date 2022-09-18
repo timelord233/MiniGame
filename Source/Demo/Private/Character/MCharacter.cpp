@@ -1,16 +1,16 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "MCharacter.h"
+#include "Character/MCharacter.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/PawnMovementComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/MHealthComponent.h"
-#include "MWeapon.h"
-#include "../Demo.h"
+#include "Weapon/MWeapon.h"
+#include "../../Demo.h"
 #include "Net/UnrealNetwork.h"
-#include "MGrenade.h"
+#include "Weapon/MGrenade.h"
 
 // Sets default values
 AMCharacter::AMCharacter()
