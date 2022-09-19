@@ -1,0 +1,7 @@
+{
+	"BuildId": "dca89302-2364-44ec-a1c7-3cb7ccb0f90d",
+	"Modules": 
+	{
+		"NimPlugin": "UE4Editor-NimPlugin.dll"
+	}
+}
