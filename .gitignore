@@ -1,6 +1,6 @@
 **/Intermediate
 **/DerivedDataCache
 **/.vs
-**/Binaries
+Binaries/
 **/Saved
 **/Build
