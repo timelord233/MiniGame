@@ -35,7 +35,7 @@ AMCharacter::AMCharacter()
 	ZoomInterSpeed = 20;
 	GrenadeOffset = FVector(200, 0, 0);
 
-	WeaponAttachSocketName = "WeaponSocket";
+	WeaponAttachSocketName = "VB RHS_ik_hand_gun";
 }
 
 // Called when the game starts or when spawned
@@ -180,20 +180,6 @@ void AMCharacter::Tick(float DeltaTime)
 void AMCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
-	PlayerInputComponent->BindAxis("MoveForward", this, &AMCharacter::MoveForward);
-	PlayerInputComponent->BindAxis("MoveRight", this, &AMCharacter::MoveRight);
-
-	PlayerInputComponent->BindAxis("LookUp", this, &AMCharacter::AddControllerPitchInput);
-	PlayerInputComponent->BindAxis("Turn", this, &AMCharacter::AddControllerYawInput);
-
-	PlayerInputComponent->BindAction("Crouch", IE_Pressed, this, &AMCharacter::BeginCrouch);
-	PlayerInputComponent->BindAction("Crouch", IE_Released, this, &AMCharacter::EndCrouch);
-
-	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
-
-	PlayerInputComponent->BindAction("Zoom", IE_Pressed, this, &AMCharacter::BeginZoom);
-	PlayerInputComponent->BindAction("Zoom", IE_Released, this, &AMCharacter::EndZoom);
 
 	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &AMCharacter::StartFire);
 	PlayerInputComponent->BindAction("Fire", IE_Released, this, &AMCharacter::StopFire);
