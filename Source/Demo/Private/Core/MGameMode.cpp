@@ -6,6 +6,54 @@
 #include "Components/MHealthComponent.h"
 #include "Core/MGameState.h"
 #include "Character/MPlayerState.h"
+#include "TimerManager.h"
+#include "Item/MonsterStart.h"
+#include "AI/MWaveConfig.h"
+#include "EngineUtils.h"
+
+
+void AMGameMode::SpawnMonster(FAIToSpawn AIToSpawn)
+{
+	if (AIToSpawn.NormalMonsterClass && AIToSpawn.SpawnLocation)
+	{
+		int32 SpawnNum = AIToSpawn.SpawnNum[SpawnTimes];
+		FActorSpawnParameters SpawnParams;
+		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+		for (int i = 0; i < SpawnNum; i++)
+		{
+			GetWorld()->SpawnActor<AActor>(AIToSpawn.NormalMonsterClass, AIToSpawn.SpawnLocation->GetActorLocation(), FRotator(0), SpawnParams);
+		}
+	}
+	SpawnTimes++;
+	if (SpawnTimes == AIToSpawn.SpawnNum.Num()) 
+	{
+		EndWave();
+	}
+}
+
+void AMGameMode::StartWave()
+{
+	FAIToSpawn AIToSpawn = WaveConfig->AIToSpawnArray[WaveNum];
+	FTimerDelegate SpawnDelegate = FTimerDelegate::CreateUObject(this, &AMGameMode::SpawnMonster, AIToSpawn);
+	SpawnTimes = 0;
+	GetWorldTimerManager().SetTimer(TimerHandle_BotSpawner, SpawnDelegate, AIToSpawn.SpawnDuration, true, 0.0f);
+}
+
+void AMGameMode::EndWave()
+{
+	GetWorldTimerManager().ClearTimer(TimerHandle_BotSpawner);
+
+	WaveNum++;
+	if (WaveNum < WaveConfig->AIToSpawnArray.Num())
+	{
+		PrepareForNextWave();
+	}
+}
+
+void AMGameMode::PrepareForNextWave()
+{
+	GetWorldTimerManager().SetTimer(TimerHandle_NextWaveStart, this, &AMGameMode::StartWave, WaveConfig->TimeBetweenWaves, false);
+}
 
 AMGameMode::AMGameMode()
 {
@@ -21,53 +69,24 @@ void AMGameMode::PostLogin(APlayerController* NewPlayer)
 	{
 		return;
 	}
-	if (TeamMemberNum[0] > TeamMemberNum[1])
-	{
-		PS->TeamNum = 1;
-		TeamMemberNum[1]++;
-	}
-	else
-	{
-		PS->TeamNum = 0;
-		TeamMemberNum[0]++;
-	}
+	PS->TeamNum = 0;
 	Super::PostLogin(NewPlayer);
 }
 
 void AMGameMode::StartPlay()
 {
 	Super::StartPlay();
-	memset(TeamMemberNum, 0, sizeof(TeamMemberNum));
-	memset(TeamScore, 0, sizeof(TeamScore));
-}
 
-void AMGameMode::RestartPlayer(AController* NewPlayer)
-{
-	if (NewPlayer == nullptr || NewPlayer->IsPendingKillPending())
+	UWorld* World = GetWorld();
+	for (TActorIterator<AMWaveConfig> It(World); It; ++It)
 	{
-		return;
-	}
-	AActor* StartSpot;
-	AMPlayerState* PS = NewPlayer->GetPlayerState<AMPlayerState>();
-	if (PS)
-	{
-		StartSpot = FindPlayerStart(NewPlayer, FString::FromInt(PS->TeamNum));
-	}
-	else
-	{
-		StartSpot = FindPlayerStart(NewPlayer);
-	}
-
-	// If a start spot wasn't found,
-	if (StartSpot == nullptr)
-	{
-		// Check for a previously assigned spot
-		if (NewPlayer->StartSpot != nullptr)
+		AMWaveConfig* config = (AMWaveConfig*)(*It);
+		if (config)
 		{
-			StartSpot = NewPlayer->StartSpot.Get();
-			UE_LOG(LogGameMode, Warning, TEXT("RestartPlayer: Player start not found, using last start spot"));
+			WaveConfig = config;
 		}
 	}
 
-	RestartPlayerAtPlayerStart(NewPlayer, StartSpot);
+	WaveNum = 0;
+	PrepareForNextWave();
 }
